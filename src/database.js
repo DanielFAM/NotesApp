@@ -1,6 +1,6 @@
 const Mongoose = require("mongoose");
 
-Mongoose.connect('mongodb://localhost/notes-db', {
+Mongoose.connect(process.env.MONGODB_URI, {
 
 })
     .then((db) => console.log('DB is connected'))
