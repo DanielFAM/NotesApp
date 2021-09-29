@@ -1,11 +1,8 @@
-const { Router } = require('express');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const morgan = require('morgan');
 const path = require('path');
 const app = express();
-
-const router = Router();
 
 require('dotenv').config();
 require('./database');
@@ -32,9 +29,7 @@ app.use(express.static(path.join(__dirname,'public')));
 //routes
 app.use('/api/users',require('./routes/user.routes'));
 app.use('/api/notes', require('./routes/note.routes'));
-app.get('/', (req,res) => {
-    res.render('index');
-});
+app.use(require('./routes/index.routes'));
 
 //Start the server
 app.listen(app.get('port'), () => {
