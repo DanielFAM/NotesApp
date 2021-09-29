@@ -1,32 +1,27 @@
 const { Router } = require("express");
 
 const router = Router();
-const note = require('../models/notes');
+const { renderNoteForm, 
+    createNewNote, 
+    renderNotes, 
+    renderEditForm, 
+    updateNote, 
+    deleteNote
+} = require('../controllers/notes.controller');
 
-router.get('/', async (req, res) => {
-    const notes = await note.find();
-    res.json(notes);
-});
+router.get('/notes/add', renderNoteForm);
 
-router.get('/:id', async (req, res) => {
-    const Note = await note.findById(req.params.id);
-    res.json(Note);
-});
+router.post('/notes/add', createNewNote);
 
-router.post('/', async (req, res) => {
-    const newNote = new note(req.body);
-    await newNote.save();
-    res.json({ Status: 'Note created' });
-});
+//Get all notes in DB
+router.get('/notes', renderNotes);
 
-router.put('/:id', async (req, res) => {
-    await note.findByIdAndUpdate(req.params.id, req.body);
-    res.json({ Status: 'Note updated' });
-});
+//Edit notes
+router.get('/notes/edit/:id', renderEditForm);
 
-router.delete('/:id', async (req, res) => {
-    await note.findByIdAndRemove(req.params.id);
-    res.json({ Status: 'Note deleted' });
-});
+router.put('/notes/edit/:id', updateNote);
+
+//Delete notes
+router.delete('/notes/delete/:id', deleteNote);
 
 module.exports = router;

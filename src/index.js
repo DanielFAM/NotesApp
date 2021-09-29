@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 //routes
 app.use('/api/users',require('./routes/user.routes'));
-app.use('/api/notes', require('./routes/note.routes'));
+app.use(require('./routes/note.routes'));
 app.use(require('./routes/index.routes'));
 
 //Start the server
